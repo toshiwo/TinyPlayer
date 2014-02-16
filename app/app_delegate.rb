@@ -9,11 +9,13 @@ class AppDelegate
   end
 
   def buildWindow
-    @mainWindow = TinyWindow.alloc.initWithContentRect([[240, 180], [480, 360]],
-      styleMask: NSTitledWindowMask|NSClosableWindowMask|NSMiniaturizableWindowMask|NSResizableWindowMask,
+    @mainWindow = TinyWindow.alloc.initWithContentRect([[0, 0], [0, 0]],
+      styleMask: NSResizableWindowMask,
       backing: NSBackingStoreBuffered,
       defer: false)
     @mainWindow.title = NSBundle.mainBundle.infoDictionary['CFBundleName']
+    @mainWindow.setBackgroundColor NSColor.clearColor
+    @mainWindow.setOpaque false
 
     @controller = PlayerController.new
     initialize_firest_responder @controller
