@@ -18,6 +18,11 @@ class AppDelegate
     @controller = PlayerController.new
     initialize_firest_responder @controller
 
+    player_manager = PlayerManager.new
+    player_manager.files = @files ||= []
+    @controller.player_manager = player_manager
+    @controller.player_manager.play
+
     @mainWindow.orderFrontRegardless
   end
 

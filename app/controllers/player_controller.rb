@@ -1,5 +1,7 @@
 class PlayerController
 
+  attr_accessor :player_manager
+
   def key_event key_type
     case key_type
     when :left
