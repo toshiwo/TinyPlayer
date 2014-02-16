@@ -21,6 +21,14 @@ class AppDelegate
     @mainWindow.orderFrontRegardless
   end
 
+  def application sender, openFiles:filenames
+    file_manager = NSFileManager.defaultManager
+
+    @files = filenames.map do |filename|
+      file_manager.fileExistsAtPath(filename) ? filename : nil
+    end.compact
+  end
+
   def initialize_firest_responder controller
     @key_event_manager = KeyEventManager.new
     @key_event_manager.controller = controller
