@@ -15,13 +15,15 @@ class AppDelegate
       defer: false)
     @mainWindow.title = NSBundle.mainBundle.infoDictionary['CFBundleName']
 
-    initialize_firest_responder
+    @controller = PlayerController.new
+    initialize_firest_responder @controller
 
     @mainWindow.orderFrontRegardless
   end
 
-  def initialize_firest_responder
+  def initialize_firest_responder controller
     @key_event_manager = KeyEventManager.new
+    @key_event_manager.controller = controller
     @mainWindow.makeFirstResponder @key_event_manager
   end
   private :initialize_firest_responder
