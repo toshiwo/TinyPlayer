@@ -19,6 +19,7 @@ class PlayerController
   def control_player method_type, options = {}
     case method_type
     when :fast_forward
+      player_manager.fast_forward options[:sec]
     end
   end
 

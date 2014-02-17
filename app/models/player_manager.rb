@@ -10,6 +10,17 @@ class PlayerManager
     play_next
   end
 
+  def fast_forward sec
+    return nil unless is_playing?
+
+    current_time = sound.currentTime
+    if (sound.currentTime + sec) < 0
+    elsif sound.duration < (sound.currentTime + sec)
+    else
+      sound.setCurrentTime (sound.currentTime + sec)
+    end
+  end
+
   private
 
   def play_next
