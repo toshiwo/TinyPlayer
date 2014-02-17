@@ -10,6 +10,12 @@ class PlayerManager
     play_next
   end
 
+  def pause_or_resume
+    return nil unless sound
+
+    is_pausing? ? resume : pause
+  end
+
   def fast_forward sec
     return nil unless is_playing?
 
@@ -49,6 +55,20 @@ class PlayerManager
     @index = 0
   end
 
+  def pause
+    @is_pausing = true
+    sound.pause
+  end
+
+  def resume
+    @is_pausing = false
+    sound.resume
+  end
+
+  def is_pausing?
+    @is_pausing
+  end
+
   def sound
     @sound
   end
@@ -56,6 +76,8 @@ class PlayerManager
   def make_sound file
     @sound = NSSound.alloc.initWithContentsOfFile file, byReference: false
     @sound.setDelegate self
+
+    @is_pausing = false
   end
 
   def is_playing?
