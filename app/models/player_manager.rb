@@ -27,6 +27,12 @@ class PlayerManager
     end
   end
 
+  def next
+    stop if is_playing?
+
+    play_next
+  end
+
   private
 
   def play_next

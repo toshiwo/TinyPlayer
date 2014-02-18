@@ -9,6 +9,8 @@ class KeyEventManager < NSResponder
 
   def keyDown event
     case event.keyCode
+    when 47 # .
+      controller.key_event :dot
     when 49 # space
       controller.key_event :space
     when 123 # left

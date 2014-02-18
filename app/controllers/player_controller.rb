@@ -4,6 +4,8 @@ class PlayerController
 
   def key_event key_type
     case key_type
+    when :dot
+      control_player :next
     when :space
       control_player :pause_or_resume
     when :left
@@ -20,6 +22,8 @@ class PlayerController
   private
   def control_player method_type, options = {}
     case method_type
+    when :next
+      player_manager.next
     when :pause_or_resume
       player_manager.pause_or_resume
     when :fast_forward
