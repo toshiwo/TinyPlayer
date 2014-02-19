@@ -8,6 +8,10 @@ class AppDelegate
     buildWindow
   end
 
+  def applicationWillTerminate application
+    @controller.player_manager.stop
+  end
+
   def buildWindow
     @mainWindow = TinyWindow.alloc.initWithContentRect([[0, 0], [0, 0]],
       styleMask: NSResizableWindowMask,
