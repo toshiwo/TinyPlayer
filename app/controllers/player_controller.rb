@@ -19,6 +19,10 @@ class PlayerController
     end
   end
 
+  def play
+    player_manager.play
+  end
+
   private
   def control_player method_type, options = {}
     case method_type
