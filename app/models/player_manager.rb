@@ -1,6 +1,8 @@
 class PlayerManager
 
-  attr_accessor :files
+  def files= filenames
+    play_list.initialize_from filenames
+  end
 
   def stop
     sound.stop
@@ -36,29 +38,10 @@ class PlayerManager
   private
 
   def play_next
-    return false if @files.empty?
-
-    begin
-      file = @files.fetch(current_index)
-    rescue IndexError => e
-      reset_index
-
-      file = @files.fetch(current_index)
-    end
+    return nil unless file = play_list.next
 
     make_sound file
-
-    @index += 1 if result = sound.play
-
-    result
-  end
-
-  def current_index
-    @index ||= 0
-  end
-
-  def reset_index
-    @index = 0
+    sound.play
   end
 
   def pause
@@ -73,6 +56,10 @@ class PlayerManager
 
   def is_pausing?
     @is_pausing
+  end
+
+  def play_list
+    @play_list ||= PlayList.new
   end
 
   def sound
