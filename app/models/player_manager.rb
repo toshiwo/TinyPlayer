@@ -5,7 +5,7 @@ class PlayerManager
   end
 
   def stop
-    sound.stop
+    sound.stop if sound
   end
 
   def play
@@ -74,6 +74,8 @@ class PlayerManager
   end
 
   def is_playing?
+    return false unless sound
+
     sound.isPlaying
   end
 
