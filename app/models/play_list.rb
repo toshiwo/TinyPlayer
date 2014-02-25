@@ -9,11 +9,10 @@ class PlayList
   end
 
   def next
-    reset_position if files.size <= current_position
+    increment_position
 
     begin
       file = files.fetch(current_position)
-      increment_position
     rescue IndexError => e
       file = nil
     end
@@ -28,7 +27,12 @@ class PlayList
   end
 
   def increment_position
+    return nil if @position.nil?
+
     @position += 1
+    reset_position if files.size <= current_position
+
+    @position
   end
 
   def reset_position
