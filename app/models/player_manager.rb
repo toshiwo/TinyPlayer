@@ -9,7 +9,7 @@ class PlayerManager
   end
 
   def play
-    play_sound
+    self.next
   end
 
   def pause_or_resume
@@ -30,14 +30,14 @@ class PlayerManager
   end
 
   def next
-    play_sound
+    return nil unless file = play_list.next
+
+    play_sound file
   end
 
   private
 
-  def play_sound
-    return nil unless file = play_list.next
-
+  def play_sound file
     stop if is_playing?
 
     make_sound file
@@ -80,11 +80,16 @@ class PlayerManager
   end
 
   def sound sound, didFinishPlaying:finishedPlaying
-    sound.stop if sound.isPlaying == 1
+    sound.stop if is_playing?
 
+    if finishedPlaying
+      puts "#{ __method__ } / ended audio and go next."
+    else
+      puts "#{ __method__ } / ended audio."
+    end
     return true unless finishedPlaying
 
-    play_sound
+    self.next
   end
 
 end
