@@ -30,8 +30,6 @@ class PlayerManager
   end
 
   def next
-    stop if is_playing?
-
     play_next
   end
 
@@ -39,6 +37,8 @@ class PlayerManager
 
   def play_next
     return nil unless file = play_list.next
+
+    stop if is_playing?
 
     make_sound file
     sound.play
