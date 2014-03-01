@@ -29,6 +29,12 @@ class PlayerManager
     end
   end
 
+  def back
+    return nil unless file = play_list.previous
+
+    play_sound file
+  end
+
   def next
     return nil unless file = play_list.next
 

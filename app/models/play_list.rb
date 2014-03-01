@@ -8,6 +8,12 @@ class PlayList
     end
   end
 
+  def previous
+    decrement_position
+
+    file = files.fetch(current_position)
+  end
+
   def next
     increment_position
 
@@ -24,6 +30,16 @@ class PlayList
 
   def current_position
     @position ||= 0
+  end
+
+  def decrement_position
+    @position = current_position - 1
+
+    if current_position < 0
+      @position = files.empty? ? reset_position : (files.size - 1)
+    end
+
+    @position
   end
 
   def increment_position
