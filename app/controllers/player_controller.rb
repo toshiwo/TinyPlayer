@@ -4,6 +4,8 @@ class PlayerController
 
   def key_event key_type
     case key_type
+    when :comma
+      control_player :back
     when :dot
       control_player :next
     when :space
@@ -26,6 +28,8 @@ class PlayerController
   private
   def control_player method_type, options = {}
     case method_type
+    when :back
+      player_manager.back
     when :next
       player_manager.next
     when :pause_or_resume
