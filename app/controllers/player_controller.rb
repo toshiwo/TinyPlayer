@@ -5,40 +5,24 @@ class PlayerController
   def key_event key_type
     case key_type
     when :comma
-      control_player :back
-
-      showPanelView
+      control_player :back and showPanelView
     when :dot
-      control_player :next
-
-      showPanelView
+      control_player :next and showPanelView
     when :space
-      control_player :pause_or_resume
-
-      showPanelView
+      control_player :pause_or_resume and showPanelView
     when :left
-      control_player :fast_forward, { sec: -10 }
-
-      showPanelView
+      control_player(:fast_forward, { sec: -10 }) and showPanelView
     when :right
-      control_player :fast_forward, { sec: 10 }
-
-      showPanelView
+      control_player(:fast_forward, { sec: 10 }) and showPanelView
     when :down
-      control_player :fast_forward, { sec: -60 }
-
-      showPanelView
+      control_player(:fast_forward, { sec: -60 }) and showPanelView
     when :up
-      control_player :fast_forward, { sec: 60 }
-
-      showPanelView
+      control_player(:fast_forward, { sec: 60 }) and showPanelView
     end
   end
 
   def play
-    player_manager.play
-
-    showPanelView
+    player_manager.play and showPanelView
   end
 
   private
