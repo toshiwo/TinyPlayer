@@ -41,6 +41,10 @@ class PlayerManager
     play_sound file
   end
 
+  def current_file
+    play_list.current_file
+  end
+
   private
 
   def play_sound file

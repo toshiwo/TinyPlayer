@@ -13,13 +13,17 @@ class AppDelegate
   end
 
   def buildWindow
-    @mainWindow = TinyWindow.alloc.initWithContentRect([[0, 0], [0, 0]],
-      styleMask: NSResizableWindowMask,
+    @mainWindow = TinyWindow.alloc.initWithContentRect([[0, 0], [480, 360]],
+      styleMask: NSBorderlessWindowMask,
       backing: NSBackingStoreBuffered,
       defer: false)
     @mainWindow.title = NSBundle.mainBundle.infoDictionary['CFBundleName']
     @mainWindow.setBackgroundColor NSColor.clearColor
     @mainWindow.setOpaque false
+
+    @mainWindow.center
+    window_position = @mainWindow.frame.origin
+    @mainWindow.setFrameOrigin NSMakePoint(window_position.x, 180)
 
     @controller = PlayerController.new
     initialize_firest_responder @controller
@@ -30,6 +34,10 @@ class AppDelegate
     @controller.play
 
     @mainWindow.orderFrontRegardless
+  end
+
+  def window
+    @mainWindow
   end
 
   def application sender, openFiles:filenames

@@ -17,13 +17,15 @@ class PlayList
   def next
     increment_position
 
-    begin
-      file = files.fetch(current_position)
-    rescue IndexError => e
-      file = nil
-    end
+    current_file
+  end
 
-    file
+  def current_file
+    begin
+      files.fetch(current_position)
+    rescue IndexError => e
+      nil
+    end
   end
 
   private
