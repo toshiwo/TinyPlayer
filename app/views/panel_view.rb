@@ -1,9 +1,21 @@
+class NSAnimationCustom < NSAnimation
+  def setCurrentProgress progress
+    super
+
+    self.delegate.redraw progress
+  end
+end
+
 class PanelView < NSView
 
   attr_accessor :player_manager
 
   def drawRect dirtyRect
     refresh_title
+  end
+
+  def redraw progress
+    self.setAlphaValue (1.0 - progress)
   end
 
   def stop_and_start_animation
@@ -21,7 +33,6 @@ class PanelView < NSView
 
     refresh_title
     self.setAlphaValue 1.0
-    self.setHidden false
 
     animation.startAnimation
   end
@@ -56,16 +67,12 @@ class PanelView < NSView
   def animation
     return @animation if @animation
 
-    dictionary = NSMutableDictionary.dictionary
-    dictionary.setObject self, forKey:NSViewAnimationTargetKey
-    dictionary.setObject NSViewAnimationFadeOutEffect, forKey:NSViewAnimationEffectKey
+    @animation = NSAnimationCustom.alloc.initWithDuration 3.0, animationCurve: NSAnimationEaseIn
 
-    animation_params = NSArray.arrayWithObject dictionary
-
-    @animation = NSViewAnimation.alloc.initWithViewAnimations animation_params
-    @animation.setDuration 3.0
-    @animation.setAnimationCurve NSAnimationEaseIn
+    @animation.setAnimationBlockingMode NSAnimationNonblocking
     @animation.setDelegate self
+
+    @animation
   end
 
   def title
