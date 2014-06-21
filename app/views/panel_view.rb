@@ -8,6 +8,10 @@ end
 
 class PanelView < NSView
 
+  LabelTags = {
+    title: 0,
+  }
+
   attr_accessor :player_manager
 
   def drawRect dirtyRect
@@ -47,7 +51,7 @@ class PanelView < NSView
 
   private
   def refresh_title
-    label = self.subviews.first
+    label = self.viewWithTag LabelTags[:title]
     label.setStringValue title
   end
 
@@ -55,6 +59,7 @@ class PanelView < NSView
     # https://developer.apple.com/library/mac/documentation/cocoa/reference/applicationkit/classes/NSTextField_Class/Reference/Reference.html
     label = NSTextField.alloc.initWithFrame CGRectMake(10, self.frame.size.height - 15, self.frame.size.width - 20, 15)
     label.setTextColor NSColor.whiteColor
+    label.tag = LabelTags[:title]
 
     # http://stackoverflow.com/questions/11120654/nstextfield-transparent-background
     label.editable = false
