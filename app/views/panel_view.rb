@@ -1,4 +1,4 @@
-class NSAnimationCustom < NSAnimation
+class NSAnimationWithRedraw < NSAnimation
   def setCurrentProgress progress
     super
 
@@ -67,7 +67,7 @@ class PanelView < NSView
   def animation
     return @animation if @animation
 
-    @animation = NSAnimationCustom.alloc.initWithDuration 3.0, animationCurve: NSAnimationEaseIn
+    @animation = NSAnimationWithRedraw .alloc.initWithDuration 3.0, animationCurve: NSAnimationEaseIn
 
     @animation.setAnimationBlockingMode NSAnimationNonblocking
     @animation.setDelegate self
