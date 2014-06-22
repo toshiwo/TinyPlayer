@@ -57,7 +57,7 @@ class PanelView < NSView
 
   def buildTitleLabel
     # https://developer.apple.com/library/mac/documentation/cocoa/reference/applicationkit/classes/NSTextField_Class/Reference/Reference.html
-    label = NSTextField.alloc.initWithFrame CGRectMake(10, self.frame.size.height - 15, self.frame.size.width - 20, 15)
+    label = NSTextField.alloc.initWithFrame CGRectMake(10, self.frame.size.height - (18 + 5), self.frame.size.width - 20, 18)
     label.setTextColor NSColor.whiteColor
     label.tag = LabelTags[:title]
 
