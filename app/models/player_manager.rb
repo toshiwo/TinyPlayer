@@ -45,6 +45,14 @@ class PlayerManager
     play_list.current_file
   end
 
+  def current_time
+    sound.currentTime
+  end
+
+  def duration_time
+    sound.duration
+  end
+
   private
 
   def play_sound file
