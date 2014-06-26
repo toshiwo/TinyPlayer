@@ -9,6 +9,7 @@ rescue LoadError
 end
 
 Motion::Project::App.setup do |app|
+  app.deployment_target = '10.7'
   # Use `rake config' to see complete project settings.
   app.name = 'TinyPlayer'
 
