@@ -11,13 +11,21 @@ class PlayerController
     when :space
       control_player :pause_or_resume and showPanelView
     when :left
-      control_player(:fast_forward, { sec: -10 }) and showPanelView
+      control_player(:fast_forward, { sec: -10 })
+
+      showPanelView
     when :right
-      control_player(:fast_forward, { sec: 10 }) and showPanelView
+      control_player(:fast_forward, { sec: 10 })
+
+      showPanelView
     when :down
-      control_player(:fast_forward, { sec: -60 }) and showPanelView
+      control_player(:fast_forward, { sec: -60 })
+
+      showPanelView
     when :up
-      control_player(:fast_forward, { sec: 60 }) and showPanelView
+      control_player(:fast_forward, { sec: 60 })
+
+      showPanelView
     end
   end
 
