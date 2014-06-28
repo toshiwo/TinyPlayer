@@ -21,10 +21,11 @@ class PanelView < NSView
   end
 
   def redraw progress
-    refresh_title
-    refresh_current_time
-
     self.setAlphaValue (1.0 - progress)
+  end
+
+  def animationDidEnd animation
+    stop_timer
   end
 
   def stop_and_start_animation
@@ -45,6 +46,7 @@ class PanelView < NSView
     self.setAlphaValue 1.0
 
     animation.startAnimation
+    create_timer
   end
 
   def reset_animation
@@ -110,6 +112,26 @@ class PanelView < NSView
     @animation
   end
 
+  def timerHandler userInfo
+    refresh_title
+    refresh_current_time
+  end
+
+  def stop_timer
+    @timer.invalidate
+    @timer = nil
+  end
+
+  def create_timer
+    return @timer if @timer
+
+    @timer = NSTimer.scheduledTimerWithTimeInterval(0.1,
+      target: self,
+      selector: "timerHandler:",
+      userInfo: nil,
+      repeats: true)
+  end
+
   def title
     player_manager.current_file.lastPathComponent
   end
@@ -140,7 +162,11 @@ class PanelView < NSView
   end
 
   def mouseEntered event
+    refresh_title
+    refresh_current_time
+
     reset_animation
+    create_timer
   end
 
   def mouseExited event
