@@ -47,6 +47,12 @@ class PanelView < NSView
     animation.startAnimation
   end
 
+  def reset_animation
+    stop_animation
+    self.setAlphaValue 1.0
+  end
+  private :reset_animation
+
   def buildSubViews
     self.setWantsLayer true
     self.layer.backgroundColor = CGColorCreateGenericRGB(0.0, 0.0, 0.0, 0.4)
@@ -118,6 +124,27 @@ class PanelView < NSView
       (current_time / 60), (current_time % 60)
 
     "#{ current_time_str } / #{ duration_time_str }"
+  end
+
+  def viewWillMoveToWindow window
+    updateTrackingAreas
+  end
+
+  def updateTrackingAreas
+    trackingArea = NSTrackingArea.alloc.initWithRect self.bounds,
+      options: (NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways),
+      owner: self,
+      userInfo: nil
+
+    self.addTrackingArea trackingArea
+  end
+
+  def mouseEntered event
+    reset_animation
+  end
+
+  def mouseExited event
+    start_animation
   end
 
 end
