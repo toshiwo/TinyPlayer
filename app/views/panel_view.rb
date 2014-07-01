@@ -79,6 +79,7 @@ class PanelView < NSView
     # https://developer.apple.com/library/mac/documentation/cocoa/reference/applicationkit/classes/NSTextField_Class/Reference/Reference.html
     label = NSTextField.alloc.initWithFrame CGRectMake(10, self.frame.size.height - (18 + 5), self.frame.size.width - 20, 18)
     label.setTextColor NSColor.whiteColor
+    label.setAlignment NSCenterTextAlignment
     label.tag = LabelTags[:title]
 
     # http://stackoverflow.com/questions/11120654/nstextfield-transparent-background
