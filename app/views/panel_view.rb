@@ -21,10 +21,11 @@ class PanelView < NSView
   end
 
   def redraw progress
-    refresh_title
-    refresh_current_time
-
     self.setAlphaValue (1.0 - progress)
+  end
+
+  def animationDidEnd animation
+    stop_timer
   end
 
   def stop_and_start_animation
@@ -45,7 +46,14 @@ class PanelView < NSView
     self.setAlphaValue 1.0
 
     animation.startAnimation
+    create_timer
   end
+
+  def reset_animation
+    stop_animation
+    self.setAlphaValue 1.0
+  end
+  private :reset_animation
 
   def buildSubViews
     self.setWantsLayer true
@@ -104,6 +112,26 @@ class PanelView < NSView
     @animation
   end
 
+  def timerHandler userInfo
+    refresh_title
+    refresh_current_time
+  end
+
+  def stop_timer
+    @timer.invalidate
+    @timer = nil
+  end
+
+  def create_timer
+    return @timer if @timer
+
+    @timer = NSTimer.scheduledTimerWithTimeInterval(0.1,
+      target: self,
+      selector: "timerHandler:",
+      userInfo: nil,
+      repeats: true)
+  end
+
   def title
     player_manager.current_file.lastPathComponent
   end
@@ -118,6 +146,31 @@ class PanelView < NSView
       (current_time / 60), (current_time % 60)
 
     "#{ current_time_str } / #{ duration_time_str }"
+  end
+
+  def viewWillMoveToWindow window
+    updateTrackingAreas
+  end
+
+  def updateTrackingAreas
+    trackingArea = NSTrackingArea.alloc.initWithRect self.bounds,
+      options: (NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways),
+      owner: self,
+      userInfo: nil
+
+    self.addTrackingArea trackingArea
+  end
+
+  def mouseEntered event
+    refresh_title
+    refresh_current_time
+
+    reset_animation
+    create_timer
+  end
+
+  def mouseExited event
+    start_animation
   end
 
 end
