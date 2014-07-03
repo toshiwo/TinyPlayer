@@ -91,8 +91,10 @@ class PanelView < NSView
   end
 
   def buildTimeLabel
-    label = NSTextField.alloc.initWithFrame CGRectMake(10, self.frame.size.height - (18 + (18 + 5)), self.frame.size.width - 20, 18)
+    label = NSTextField.alloc.initWithFrame CGRectMake(10, self.frame.size.height - (36 + (18 + 5)), self.frame.size.width - 20, 36)
+    label.setFont NSFont.labelFontOfSize 30
     label.setTextColor NSColor.whiteColor
+    label.setAlignment NSCenterTextAlignment
     label.tag = LabelTags[:time]
 
     label.editable = false
