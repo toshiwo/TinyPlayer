@@ -46,8 +46,6 @@ class AppDelegate
     @files = filenames.map do |filename|
       file_manager.fileExistsAtPath(filename) ? filename : nil
     end.compact
-
-    @controller.play unless @controller.nil?
   end
 
   def initialize_firest_responder controller
