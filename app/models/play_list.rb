@@ -1,6 +1,6 @@
 class PlayList
 
-  def initialize_from filenames
+  def initialize_with filenames
     file_manager = NSFileManager.defaultManager
 
     filenames.each do |filename|
