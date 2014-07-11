@@ -1,7 +1,7 @@
 class PlayerManager
 
   def files= filenames
-    play_list.initialize_with filenames
+    play_list.initialize_from filenames
   end
 
   def stop
