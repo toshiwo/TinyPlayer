@@ -1,10 +1,18 @@
 class PlayList
 
-  def initialize_with filenames
+  def initialize_with paths
     file_manager = NSFileManager.defaultManager
 
-    filenames.each do |filename|
-      files << filename if file_manager.fileExistsAtPath(filename)
+    paths.each do |path|
+      is_directory = Pointer.new :boolean
+
+      if file_manager.fileExistsAtPath(path, isDirectory: is_directory)
+        if is_directory[0]
+          # TODO: check files in directory
+        else
+          files << path
+        end
+      end
     end
   end
 
