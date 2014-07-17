@@ -8,7 +8,9 @@ class PlayList
 
       if file_manager.fileExistsAtPath(path, isDirectory: is_directory)
         if is_directory[0]
-          # TODO: check files in directory
+          file_manager.contentsOfDirectoryAtPath(path, error:nil).each do |file|
+            files << "#{path}/#{file}".stringByExpandingTildeInPath
+          end
         else
           files << path
         end
